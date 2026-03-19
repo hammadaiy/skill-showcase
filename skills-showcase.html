@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamad Ullah — Skills Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f0e8;
+    --cream: #ede7d8;
+    --accent: #c94a2b;
+    --accent2: #2b6cb0;
+    --rule: #d4c9b0;
+    --muted: #7a7060;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.6;
+  }
+
+  /* ── MASTHEAD ── */
+  header {
+    padding: 72px 60px 56px;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  .header-meta a {
+    color: var(--accent2);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent2);
+  }
+
+  /* ── INTRO BAND ── */
+  .intro {
+    padding: 44px 60px;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .intro-text {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .intro-text strong {
+    font-weight: 500;
+  }
+
+  .skills-index {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .skill-pill {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 18px;
+    border: 1px solid var(--rule);
+    background: var(--cream);
+    cursor: default;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-pill:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .pill-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--accent);
+    min-width: 28px;
+  }
+
+  .pill-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    padding: 18px 60px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ── SKILL CARDS ── */
+  .skills-grid {
+    padding: 0 60px 60px;
+  }
+
+  .skill-card {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 48px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .skill-card:nth-child(1) { animation-delay: 0.2s; }
+  .skill-card:nth-child(2) { animation-delay: 0.35s; }
+  .skill-card:nth-child(3) { animation-delay: 0.5s; }
+
+  .card-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-style: italic;
+    color: var(--rule);
+    line-height: 1;
+    padding-top: 4px;
+    transition: color 0.3s;
+  }
+
+  .skill-card:hover .card-number {
+    color: var(--accent);
+  }
+
+  .card-body {}
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .card-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .card-desc {
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: #2d2a25;
+    margin-bottom: 28px;
+    max-width: 600px;
+  }
+
+  /* ── EVIDENCE BLOCKS ── */
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 4px;
+  }
+
+  .evidence {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 20px 22px;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .evidence:hover {
+    box-shadow: 4px 4px 0 var(--rule);
+    transform: translate(-2px, -2px);
+  }
+
+  .ev-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .ev-title {
+    font-weight: 500;
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+  }
+
+  .ev-detail {
+    font-size: 0.83rem;
+    color: #4a4540;
+    line-height: 1.55;
+  }
+
+  .ev-badge {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    text-transform: uppercase;
+  }
+
+  /* ── CLOSING QUOTE ── */
+  .closing {
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 60px;
+    align-items: center;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem;
+    font-style: italic;
+    line-height: 1.5;
+    border-left: 3px solid var(--accent);
+    padding-left: 28px;
+    color: var(--ink);
+  }
+
+  blockquote cite {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 14px;
+    text-transform: uppercase;
+  }
+
+  .contact-block {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px;
+  }
+
+  .contact-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  .contact-block p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 2;
+    color: #c9c4bb;
+  }
+
+  .contact-block a {
+    color: #f0c08a;
+    text-decoration: none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 20px 60px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    header, .intro, .closing, .section-label, .skills-grid, footer {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    header, .intro, .closing {
+      grid-template-columns: 1fr;
+    }
+    .header-meta { text-align: left; }
+    .skill-card {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .card-number { font-size: 2rem; }
+  }
+  .project-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-family: 'DM Mono', monospace;
+  text-decoration: none;
+  color: var(--accent2);
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="name">Hamad<br><em>Ullah</em></div>
+    <p class="tagline">IT Student · Aspiring Software Developer</p>
+  </div>
+  <div class="header-meta">
+    University of Eastern Finland<br>
+    Final-year Student — Information Technology<br>
+    <a href="https://www.linkedin.com/in/hammadaiy/" target="_blank">LinkedIn</a><br>
+    Espoo, Finland
+  </div>
+</header>
+
+<div class="intro">
+  <p class="intro-text">
+    I'm an IT student who likes building things and figuring out how they actually work — not just in theory, but in real projects.
+    Most of what I've learned comes from trying, breaking things, fixing them, and doing it again.
+    These are the skills I've built so far that I believe I can bring into a real team environment.
+  </p>
+  <div class="skills-index">
+    <div class="skill-pill"><span class="pill-num">01</span><span class="pill-label">Full-Stack Dev and AI Integration</span></div>
+    <div class="skill-pill"><span class="pill-num">02</span><span class="pill-label">Problem Solving</span></div>
+    <div class="skill-pill"><span class="pill-num">03</span><span class="pill-label">Communication</span></div>
+  </div>
+</div>
+
+<div class="section-label">
+  <span>Skills · Evidence · Impact</span>
+</div>
+
+<div class="skills-grid">
+
+  <!-- SKILL 01 -->
+  <div class="skill-card">
+    <div class="card-number">01</div>
+    <div class="card-body">
+      <div class="card-subtitle">Core Technical Skill</div>
+      <h2 class="card-title">Full-Stack Development and AI Integration</h2>
+      <p class="card-desc">
+        I build web apps from scratch — handling the frontend, connecting backends, and integrating AI where it makes sense.
+        My stack is mostly React, Python, and SQL, and I've been experimenting with LLMs to build things that actually do something useful, not just look good.
+        Most of what I know came from building real projects, breaking them, and figuring out why.
+      </p>
+      <div class="evidence-grid">
+        <div class="evidence">
+          <span class="ev-tag">Active Personal Project</span>
+          <div class="ev-title">RekroAI</div>
+          <div class="ev-detail">An AI-powered recruiting tool that reads CVs and job descriptions and gives structured feedback. Built the full pipeline — React frontend, Python backend, LLM API integration.</div>
+          <span class="ev-badge">LLM API · Python · React</span>
+        </div>
+        <div class="evidence">
+          <span class="ev-tag">Personal Project</span>
+          <div class="ev-title">ChatSphere - An AI Chatbot</div>
+          <div class="ev-detail">Built a chatbot using React and connected it to an API. Spent a lot of time fixing issues with responses and UI, which helped me understand how APIs actually behave.</div>
+          <a href="https://github.com/hammadaiy/ChatSphere-An-AI-Chatbot" target="_blank" class="project-link">
+  View Project →
+</a>
+          <span class="ev-badge">React · API Integration</span>
+        </div>
+        
+          
+        <div class="evidence">
+          <span class="ev-tag">School Project</span>
+          <div class="ev-title">Java Chat App — Chatter</div>
+          <div class="ev-detail">Multi-user chat app in Java. Got into sockets and threading for the first time — harder than expected, but good for understanding what a backend actually does.</div>
+          <a href="https://github.com/hammadaiy/Chatter---A-Simple-Chatting-Application" target="_blank" class="project-link">
+  View Project →
+</a>
+          <span class="ev-badge">Java · Networking · Backend</span>
+        </div>
+        <div class="evidence">
+          <span class="ev-tag">Portfolio</span>
+          <div class="ev-title">My Portfolio</div>
+          <div class="ev-detail">Built and deployed my own portfolio website. Working through the full process, from idea to live site which helped me learn more than just following tutorials.</div>
+          <a href="https://hamadullah.vercel.app/" target="_blank" class="project-link">
+  View Project →
+</a>
+          <span class="ev-badge">Live · Self-hosted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL 02 -->
+  <div class="skill-card">
+    <div class="card-number">02</div>
+    <div class="card-body">
+      <div class="card-subtitle">Analytical Skill</div>
+      <h2 class="card-title">Problem Solving</h2>
+      <p class="card-desc">
+        A big part of coding is just figuring out why something isn’t working.  
+      I’ve learned to break problems down, test things step by step, and not just guess.  
+      Most of this came from building projects and getting stuck — then working through it.
+      </p>
+      <div class="evidence-grid">
+        
+        <div class="evidence">
+          <span class="ev-tag">Project</span>
+          <div class="ev-title">Line-Following Robot — Webots</div>
+          <div class="ev-detail">Built and tuned a robot simulation in Webots using Python. The challenge was debugging sensor behaviour and adjusting logic when the robot didn't do what the code said it should.</div>
+          <a href="https://github.com/hammadaiy/Line-Follower-with-Obstacle-Avoidance-Robot" target="_blank" class="project-link">
+  View Project →
+</a>
+          <span class="ev-badge">Python · Simulation · Debugging</span>
+        </div>
+        <div class="evidence">
+          <span class="ev-tag">Project</span>
+          <div class="ev-title">Snake Game in React</div>
+          <div class="ev-detail">Built a Snake game where I had to handle movement, collisions, and edge cases. Helped me understand how to manage logic and state together.</div>
+          <a href="https://github.com/hammadaiy/Snake-Game" target="_blank" class="project-link">
+  View Project →
+</a>
+          <span class="ev-badge">React · State · Edge Cases</span>
+        </div>
+        <div class="evidence">
+          <span class="ev-tag">Coursework</span>
+          <div class="ev-title">4-bit Image Arithmetic</div>
+          <div class="ev-detail">Low-level binary operations on image data. Had to think carefully about overflow, bit manipulation, and what's actually happening at the data level.</div>
+          <span class="ev-badge">Binary · CS Fundamentals</span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL 03 -->
+<div class="skill-card">
+  <div class="card-number">03</div>
+  <div class="card-body">
+    <div class="card-subtitle">Professional Skill</div>
+    <h2 class="card-title">Communication</h2>
+    <p class="card-desc">
+      I’ve learned that being able to explain things clearly is just as important as writing the code.  
+      Through projects and university work, I’ve had to communicate ideas, ask questions, and stay clear about what I’m doing.  
+      I’m still improving, but I’ve seen how much it matters in a team.
+    </p>
+
+    <div class="evidence-grid">
+
+      <div class="evidence">
+        <span class="ev-tag">Coursework</span>
+        <div class="ev-title">DevOps Team Project</div>
+        <div class="ev-detail">
+          Worked in a team using Git and shared tasks. Had to communicate clearly to avoid conflicts and keep everything running smoothly.
+        </div>
+        <span class="ev-badge">Git · Teamwork</span>
+      </div>
+
+      <div class="evidence">
+        <span class="ev-tag">Initiative</span>
+        <div class="ev-title">LinkedIn & Writing</div>
+        <div class="ev-detail">
+          Writing about my projects helped me learn how to explain technical work in simple terms.
+        </div>
+        <span class="ev-badge">Clarity · Communication</span>
+      </div>
+
+      <div class="evidence">
+        <span class="ev-tag">Experience</span>
+        <div class="ev-title">Networking Events</div>
+        <div class="ev-detail">
+          Attended events and practised talking about my background and interests in a professional setting.
+        </div>
+        <span class="ev-badge">Confidence · Networking</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="closing">
+  <blockquote>
+    "I'm still learning, but I learn best by building things and figuring them out along the way.  
+    I'm looking for an opportunity where I can contribute, improve, and gain real experience."
+    <cite>Hamad Ullah</cite>
+  </blockquote>
+
+  <div class="contact-block">
+    <h3>Let's connect</h3>
+    <p>
+      LinkedIn: <a href="https://www.linkedin.com/in/hammadaiy/" target="_blank">linkedin.com/in/hammadaiy</a><br>
+      GitHub: <a href="https://github.com/hammadaiy" target="_blank">github.com/hammadaiy</a><br>
+      Location: Helsinki, Finland<br>
+      Degree: B.Sc. IT — University of Eastern Finland<br>
+      Looking for: Internship / Summer Trainee (IT)<br>
+      Stack: React · Python · SQL · Java
+    </p>
+  </div>
+</div>
+<footer>
+  <span>Hamad Ullah · Skills Showcase · 2026</span>
+  <span>IT · Software Development · UEF</span>
+</footer>
+
+</body>
+</html>
